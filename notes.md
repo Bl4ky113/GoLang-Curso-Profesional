@@ -5,6 +5,8 @@ End:
 
 Sessions:
 - 03/27/2023
+- 04/02/2023
+- 04/14/2023
 
 ## Que es GO?
 
@@ -159,3 +161,21 @@ bool
 
 En general, que los Docs de GO son bastante complejos, pero que tienen una buena 
 cantidad de contenido, ejemplos y demás para aprender de ellos.
+
+## FMT Input
+
+Para usar Insputs del usuario por la terminal, vamos a usar de fmt Scan, Scanln, Scanf. Con las 
+mismas funcionalidades de Print. 
+Pero tiene un cambio,
+Solo funciona para que el usuario entre los datos. No imprime un label, para eso demobe hacer un 
+print antes del Scan. 
+Simplemente vamos a tener que pasar la variable que va a recibir el input. Pero si este no es 
+pasado casí inmediatamente se va a pasar por el valor default. 
+Para solucionar esto, vamos a poner un & antes de la variable para que GO espere hasta que el usuario 
+pase un \n u un enter para recibir los datos.
+
+Estos datos los procesa cada uno cómo un string con espacios entre cada valor. Si pasamos más de un valor para el input,
+cada espacio que tenga el input, va a ser un valor nuevo.
+
+Las variantes f es para procesar el input cómo standard input o con %d y cosas, ln simplemente con un ln se termina el read 
+cuando pasan un \n o EOF
