@@ -7,6 +7,9 @@ Sessions:
 - 03/27/2023
 - 04/02/2023
 - 04/14/2023
+- 05/09/2023 Hey there
+- 05/10/2023
+- 05/15/2023 Still Standing, I swear
 
 ## Que es GO?
 
@@ -179,3 +182,92 @@ cada espacio que tenga el input, va a ser un valor nuevo.
 
 Las variantes f es para procesar el input cómo standard input o con %d y cosas, ln simplemente con un ln se termina el read 
 cuando pasan un \n o EOF
+
+## Arrays 
+
+Los arrays son de tamaño inmutable, y de un solo tipo, definido desde el inicio.
+
+Definición con largo, tipo y valores 
+var foo [5]string{ 'a', 'b', 'c', 'd', 'e' }
+
+Se pueden definir sin los valores ya definidos, 
+siendo los valores el valor default del tipo de dato:
+var foo [5]string;
+[ '', '', '', '', '' ]
+
+El Valor ya definido
+var foo := [5]string{ 'a', 'b', 'c', 'd' }
+
+Sin el número de valores definidos, se cuenta desde la creación y no puede ser modificado
+var foo := [...]string{ 'a', 'b', 'c', 'd' } //len(foo) => 4
+
+Con valores con un indice diferentes:
+var foo := [...]string{ 0: 'a', 2:'b', 4: 'c' }
+['a', '', 'b', '', 'c'] // len(foo) => 5
+Se generan valores defaults en los indices que no estan definidos
+
+Slice de Python en los arrays
+var foo [3]int{1, 2, 3, 4, 5}
+foo[1:3] => [2, 3, 4]
+
+foo[:3] => [1, 2, 3, 4]
+for[3:] => [4, 5]
+
+## Slicen
+
+Los Slicen son practimante pointers a Arrays que son modificables, y que necesariamente no
+tenemos que definir su tamaño inicial.
+
+Eso los podemos definir:
+cómo
+
+var foo = int[]
+foo := []int
+
+O sí usamos el slice de python desde un Array u otro Slice
+
+var a = [4]int
+var foo = a[:1]
+foo => [0, 0, 0]
+
+Estos Slices tienen, junto a los Arrays, 3 valores
+sus valores, [0, 0, 0]
+su largo 3, número de valores
+y su capacidad, el valor predefinido del array, el de los -> [number]int
+
+se pueden ver estos valores con:
+foo
+len(foo)
+cap(foo)
+
+Podemos agregar valores a un Slice usando 
+append(slice, value)
+
+Pero cuando nos pasemos del tamaño normal, este se va a duplicar, haciendo que el 
+pointer cambie a otro array, y se re aloque a un slice con el doble de capacidad. 
+Cambiando varias cosas sobre este Slice.
+
+Si no necesitamos, o queremos, que cuando creamos un slice sea un pointer y no su 
+propio valor. Podemos usar:
+copy(copyFoo, foo)
+
+## Make
+
+Make es una función que nos permite crear arrays y slices, teniendo en cuenta sus valores, 
+largo y capacidad.
+
+make([]values, len, cap) -> slice
+
+## Maps
+
+Los Mapas son los dicts o Objs literales de GO, los definimos con make,
+pasando make en lugar de los valores, y a este le pasamos el tipo de 
+valor de las llaves, y el tipo de valor.
+
+foo := make(map[key]value)
+
+los valores se obtienen de la forma general
+
+foo[key] -> value en [key]
+
+En los values, puede almacenar arrs y slices. Para acceder a estos con doble indice foo[key][index]
