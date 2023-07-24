@@ -10,6 +10,10 @@ Sessions:
 - 05/09/2023 Hey there
 - 05/10/2023
 - 05/15/2023 Still Standing, I swear
+- 06/18/2023 God Dangmit. They Updated the Course
+- 06/24/2023 Lets finish this thing before the month ends!!!
+- 07/22/2023 Gues what? I couldn't :C But we can make it
+- 07/23/2023 Common, we can do it
 
 ## Que es GO?
 
@@ -78,6 +82,49 @@ y
 const UpperCase
 respectivamente.
 
+con const, aveces se necesita setear diferentes variables al mismo tiempo. 
+Para hacer esto, simplemente vamos a tener que usar const cómo si fuera una function. 
+pasando los valores con un ().
+
+Desde ahí podemos definir de forma normal las variables. O podemos usar IOTA.
+
+## IOTA
+
+IOTA es un tipo de operador que nos permite definir consts de una forma ciclica.
+el formato de uso es:
+
+const (
+	foo int = IOTA // 0
+	bar  // 1
+	foo1 // 2
+	bar1 // 3
+)
+
+IOTA incrementa en 1, desde 0, siendo un int esto se puede modificar para cualquier op de número.
+Algunos ejemplos robados, pero curiosos que ví:
+
+Con corridos de memoria, se define en bin los permisos UNIX.
+1 READ
+2 WRITE
+4 EXECUTE
+const (
+	read   = 1 \<\<> iota \/\/ 00000001 = 1
+	write              \/\/ 00000010 = 2
+	remove             \/\/ 00000100 = 4
+
+	\/\/ admin will have all of the permissions
+	admin = read \| write \| remove
+)
+
+Desde que se define IOTA, cada valor consecuente va a ser definido según cómo indique el paso del ciclo.
+Para evitar o saltarse un valor del ciclo, se usa el operador _ entre las variables
+
+const (
+	foo int = IOTA // 0
+	_ // 1
+	bar // 2
+)
+
 ## Operadores
 
 Los de siempre los aritmeticos
@@ -142,7 +189,7 @@ Algunos solo varian por el tamaño y uso
 uint 8 - 64 - 2^n bits: Non-signed ints
 int 8 - 64 - 2^n bits: signed ints
 
-byte 8bits
+byte 8bits: se pueden usar para almacenar también solo un char
 rune 32 bits
 uint 32 u 64 bits non-signed
 int 32 u 64 bits signed
@@ -158,7 +205,28 @@ complex128
 
 ### Otros Primitivos
 string
+rune: se puede usar para guardar valores unicode
 bool
+
+## Conversión de Tipos de Datos
+
+### Numbers
+
+La forma más sencillas de conversiones son de números, simplemente vamos a usar 
+las variables definidas de los tipos de datos, que es el nombre del tipo y pasamos el 
+número cómo tal a convertir. Utíl si vamos a operar diferentes tipos de ints.
+
+int8 + int32 = ERROR
+Salta error siempre y cuando el resultado sea mayor a int8
+
+### Strings
+
+Para strings se ocupa un módulo completo de GO llamado strconv el cual tiene cómo functions.
+Los cuales las más sencillas son 
+
+Atoi str -> int
+y
+Itoa int -> str
 
 ## GO to read the Docs
 
@@ -271,3 +339,105 @@ los valores se obtienen de la forma general
 foo[key] -> value en [key]
 
 En los values, puede almacenar arrs y slices. Para acceder a estos con doble indice foo[key][index]
+
+## Operadores de Booleans
+
+No son operadores de Booleans, el tipo de dato, pero operadores lógicos, básicamente los mismo de toda la vida de C.
+Siguen la secuencia de 'resolución' (?) de PEMDAS
+
+Parentesiss
+Exponentes
+Multiplicación
+División
+Suma
+Resta
+
+## If - Else
+
+El if esle tiene un uso relativamente pytonica, pero tiene un truco cómo si fuera un for loop de C.
+
+Se define cómo 
+
+if condicional {
+
+} else if condificonal {
+
+} else {
+
+}
+
+No es necesario tener la condicional con (), pero dentro de esta se pueden 
+definir variables que se pueden usar dentro del scope del If. Definiendolo y 
+continuando la condicional con un ;
+
+if foo := 'val'; foo != 'val' {
+	...
+	fmt.Println(foo) -> 'val'
+}
+
+## Switch Makes a Comeback
+
+Switch tiene la syntaxis normal de C.
+Solo que se puede declarar sin (). Y agregando el extra del settear variables al nivel del scope.
+Algo extra es que no se tiene que declarar el break del case. Simplemente se define un default o 
+otro case nuevo.
+
+Pero ademas de esto, podemos dejarlo con condicional inicial, o solo con la variable de scope.
+Y podemos poner condicionales en cada case del switch, cosa que no se puede hacer en la gran mayoria de 
+lenguajes.
+La variable de scope se puede usar en los condicionales de los cases.
+
+## For Loop
+
+Sigue la tendencia de las estructuras anteriores. Misma syntaxis que la de C, pero sin parentesis.
+Y hace uso de break para romper todo el Loop, o continue para saltarse o pasar a la siguiente iteración.
+
+Se puede crear un for loop infinito, simplemente no definiendo nada, y solo los {}.
+
+## Functions
+
+Tiene un revoltijo de ni el Hps
+
+Se declaran con la palabra reservada func. Nombre parametros entre (), posible return y scope {}.
+En los parametros, se tienen que declarar el tipo de estos. con:
+
+func foo (bar string) {}
+
+Pero si se tienen varios parametros con el mismo tipo, se pueden definir todos con el mismo tipo
+
+(foo, bar, a string). Y todos seran de tipo string
+
+En los datos de posible return, se puede definir que se van a devolver más de un valor separando el tipo 
+del valor con comas
+
+func foo () int, int {
+	return 1, 0
+}
+
+Pero este return, puede definir también variables dentro del scope de la function.
+Dejando dentro de un () el nombre de las varaibles y su tipo
+
+func foo () (bar string, see string) {
+	fmt.Println(bar, see)
+	return bar, see
+}
+
+Haciendo que la function siempre tenga un return. Y no haya problemas al definir el tipo del return (?)
+Sinceramente es pura mierda, pero bueno.
+
+Si los valores a retornar definidos también tienen los mismos tipos, se pueden definir para varios
+
+func foo () (bar, foo string) {
+	return bar, foo
+}
+
+Estas functions que no retornan un Array o Slicen completo, se pueden obtener los returns 
+definiendo dos variables cuando se guarde y se llame la function.
+
+foo, bar = foo() -> foo, bar
+
+Pero si no necesitamos un valor, NO podemos dejarlo volando, por eso lo mejor es dejarlo cómo una 
+variable con nombre \_
+
+\_, bar = foo() => foo, bar ... solo se guarda, o se usa, bar
+No puede dar error al no usar _ (?)
