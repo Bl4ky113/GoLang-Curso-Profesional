@@ -14,6 +14,7 @@ Sessions:
 - 06/24/2023 Lets finish this thing before the month ends!!!
 - 07/22/2023 Gues what? I couldn't :C But we can make it
 - 07/23/2023 Common, we can do it
+- 07/24/2023 Let's go!!!
 
 ## Que es GO?
 
@@ -340,6 +341,104 @@ foo[key] -> value en [key]
 
 En los values, puede almacenar arrs y slices. Para acceder a estos con doble indice foo[key][index]
 
+Nosotros podemos intentar obtener cualquier valor de los maps usando sus keys. Pero si esta no existe nos puede dar un error.
+Este valor es pasado junto al valor de la llave, si tiene, cómo un return multiple
+
+foo, fooExists := anyMap['fooKey']
+
+fooExists == true Si sí existe un valor con la llave fooKey
+false si no.
+
+Esto se puede conjugar con las definiciones de scope en los Ifs definiendo el valor y el verificador, para 
+despues validar el verificador
+
+Lo más probable es que se pueda usar en todos los tipos de estructuras de datos, pero en Maps.
+para eliminar un valor según su key, vamos a usar delete(map, key)
+
+Se puede iterar por todo el map usando for y pasando al range el map, el cual va a 
+retornar cómo variable la key y su val.
+
+for key, val := range map {
+	...
+}
+
+## Structures 
+
+Types o Structures son formas en las que se puede generar un tipo de obj 'generico' donde 
+se definen las propiedades del object cómo si fuera un interfaz de un tipo de obj.
+
+En el ejemplo dado solo se define un tipo con datos sencillos, pero creo que se puede con estructuras de datos
+y functions.
+
+para definirlo se sigue la syntaxis
+
+type Nombre struct {
+	property type
+	... ...
+}
+
+Para usarlo, vamos a definir una variable con el tipo de Nombre, o el nombre del struct.
+Podemos acceder a las propiedades usando
+
+var foo Nombre
+foo.property
+Donde las podemos definir y llamar.
+
+Pero si no queremos usar var, podemos hacerlo con el := Llamandolo cómo si se fuera a definir los valores cómo tal,
+se pueden definir por orden o por nombre las propiedades
+
+foo := Nombre{val}
+
+o
+
+foo := Nombre{property: val}
+
+### Methods & Pointers
+
+Primero los pointers, los pointers son formas en las que en la memoria del pc se guardan los datos. 
+Generalmente se trabajan apartir de valores No-globales, o modificando la memoria de las variables cuando se definen algunas 
+cosas cómo estas variables
+
+x := 10
+y := x
+
+Si yo modifico x, y va a cambiar. Pero si modifico y, x no va a cambiar, porqué? Por qué y es una copia de x. No tiene el mismo valor o tiene la misma
+memoria. Para hacer que sea el mismo valor, simplemente le ponemos 10, o una copia con copy().
+
+Pero si necesitamos que si modificamos y, se modifique x. Debemos usar la referencia de la memoria de x y guardarla en y.
+
+Esto se define con la syntaxis
+
+var x int = 10
+var y *int = &x
+
+Diciendo que *int es una referencia de un int y que se asigna la referencia en memoria de x.
+Si modificamos y en cualquier scope, cómo se esta modificando la memoria cual apunta x, x cambiara también.
+
+Esto se puede aplicar pasando en functions que reciban parametros que sean referencias con *int o *type.
+Y usandolo internamente con *parameter, para que se defina que es un pointer
+
+
+Ahora los methods, los methods son una forma en la que podemos definir metodos para nuestras propiedades de los structs, 
+no se definen internamente desde el struct, pero creamos una function la cual tenga un receptor el cual es una variable que es un pointer 
+de una instancia del struct. Añadiendo una nueva syntaxis al func
+
+type Person struct {
+	property string
+}
+
+func (person *Person) getProperty () {
+	ftm.Printf("property: %s", person.property)
+}
+
+Estos metodos pueden modificar y llamar las propiedades de los structs, pero tienen que ser llamados y usadas desde 
+una instancia de person:
+
+per := Person { ... }
+
+p.getProperty() -> Funciona!
+getProperty() -> NO funciona...
+
 ## Operadores de Booleans
 
 No son operadores de Booleans, el tipo de dato, pero operadores lógicos, básicamente los mismo de toda la vida de C.
@@ -441,3 +540,25 @@ variable con nombre \_
 
 \_, bar = foo() => foo, bar ... solo se guarda, o se usa, bar
 No puede dar error al no usar _ (?)
+
+## Matrices
+
+Son las mismas cosas que hemos visto de un Array de Go
+
+Definido con
+
+var foo [numValores]tipo
+
+Pero algo extra es la posibilidad de iterar atravez de los valores de los Arrays usando el for loop
+
+foo = [5]int{1, 4, 7, 9, 10}
+for i, val := range foo {
+	fmt.Printf('i: %d, val: %d', i, val)
+}
+
+Tomando el index del valor en i y el valor en val
+
+Se pueden formar Arrays multi dimensionales definiendo con dos [][] y al momento de definirlo,
+hacerlo con {} dentro de {}, { {}, {}, {} }.
+
+
