@@ -15,6 +15,7 @@ Sessions:
 - 07/22/2023 Gues what? I couldn't :C But we can make it
 - 07/23/2023 Common, we can do it
 - 07/24/2023 Let's go!!!
+- 07/25/2023 Still going strong. 4 days in a row
 
 ## Que es GO?
 
@@ -393,6 +394,15 @@ o
 
 foo := Nombre{property: val}
 
+Los Structs se les puede poner un alias (?)
+para cuando se tiene que codificar o decodificar las propiedades, y usar otro tipo de syntaxis, Full-CamelCase en GO.
+
+Para esto, alfrente del tipo, vamos a poner en \`\` el tipo de codificación y el nombre despúes de unos :
+
+type Nombre struct {
+    Property string \`json:property\`
+}
+
 ### Methods & Pointers
 
 Primero los pointers, los pointers son formas en las que en la memoria del pc se guardan los datos. 
@@ -541,6 +551,13 @@ variable con nombre \_
 \_, bar = foo() => foo, bar ... solo se guarda, o se usa, bar
 No puede dar error al no usar _ (?)
 
+Se pueden hacer anonymous functions generando una function dentro de otra, pero despues de los {} 
+agregar los () con los parametros necesarios, para qué una vez se creé, se ejecuté.
+
+func () {
+
+}()
+
 ## Matrices
 
 Son las mismas cosas que hemos visto de un Array de Go
@@ -561,4 +578,87 @@ Tomando el index del valor en i y el valor en val
 Se pueden formar Arrays multi dimensionales definiendo con dos [][] y al momento de definirlo,
 hacerlo con {} dentro de {}, { {}, {}, {} }.
 
+## Error triggering - handle in GO
 
+Los errores no se pueden hacer un trigger, o un throw, u algo cómo la gran mayoria de lenguajes de programación.
+Pero son totalmente manejados por el código cómo tal. Ya hemos visto unos casos.
+Y la forma de mandar y mostrar errores es que junto al return de las funciones, si ocurre un error, vamos a 
+retornar el valor base del tipo de return y un error.
+
+Qué NO es un tipo de dato, pero un a interfaz que simplemente retorna el str del error cómo tal. De pronto se puede 
+modificar para que tenga cosas cómo traces, codes, y demás. Pero quien sabe.
+
+La forma sencilla de crear un error custom, es usando la lib integrada de errors. 
+Donde si queremos crear un nuevo error, simplemente vamos a usar su method New y pasar el str del error.
+
+Desde el return, donde se implemente la function, vamos a hacer un handle apropiado del error en cuestión.
+
+## defer
+
+defer es una forma única en la que podemos 'atrasar' la ejecución de un código, que es más oportuno para 
+cosas cómo cerrar y guardar las cosas apropiadamente. Cómo al editar un archivo, debemos cerrarlo una vez 
+lo hayamos usado. Esto para evitar que no tenga los cambios hechos u ocurra otro error.
+
+Este funciona agregando diferentes instrucciónes a un stack, donde el primero en entrar, es el primero en salir.
+No creo que sea todo lo que se pueda hacer con esto, más que un stack de acciones a realizar el código una vez termine 
+de ejecutar todas las otras acciones.
+
+## PANIC at the disco
+
+Lo anterior era una forma de generar errores y manejarlos hasta cierto nivel,
+pero con panic(). Es un clasico error que rompe el código, 
+donde nos muestra un str de error, el cual se pasa cómo parametro, y el goroutine de cómo ocurrio y 
+donde el error.
+
+Esto rompe el código y evita su ejecución, pero podemos agregar un catch o un execption, dentro de nuestro código junto a defer. 
+Para esto vamos a crear una anonymous function, donde vamos a usar recover(). Qué es una function interna que nos permite hacer
+catch de cualquier error que panic lanza, sin romper la ejecución del código, más que usar o realizar el handle de la anonymous function.
+
+PERO OJO. Esto no es recomendado hacerlo en el código de verdad, en general, usar los metodos anteriores. Y usar solo estos para 
+manejos más globales y no tan especificos, o usarlos cómo sería un catch en cualquier otro lenguaje de programación.
+
+## Logging stuff
+
+En Go, podemos hacer logs avanzados, para evitar usar solo fmt.
+Esto se hace con la lib de log, que nos permite hacer diferentes logs, configurarlos y 
+inclusive interactuar con el runtime del programa ejecutando un Fatal o un Panic
+
+los logs normales son lo de Print, Printf y Println, que imprimen la fecha y hora junto al mensaje 
+que hayamos pasado.
+
+Se puede interactuar usando Fatal, qué hace que el programa haga exit con code 1. Es decir se detenga todo.
+Y se puede hacer un Panic, qué es lo mismo pero con code 2, mostrando el runtime y datos de donde se llamo el 
+Panic.
+
+Se pueden configurar, por ejemplo, agregando un prefifo cuando se generen los logs dentro de un módulo, esto con: SetPrefix(str). 
+Se puede destinar los logs a una instancia de un Archivo Abierto usando: SetOutput(file)
+
+## File System y Operating System
+
+Para crear y abrir archivos debemos usar al lib de OS, y usar el method de OpenFile
+este recibe el nombre del archivo, las flags de uso, cómo: create, append, read - write only, etc.
+y los permisos qué se setear en el archivo.
+
+Pero sí o sí, para guardar los cambios y el archivo cómo tal. Debemos despúes de usarlo usar el method Close de la 
+instancia del archivo. Una forma sencilla es ponerlo con un defer justo al lado de la creación del archivo.
+
+Al momento de crear o abrir el archivo, también puede retornar un error al estilo de handle básico de errores.
+
+Se pueden crear archivos solo usando Create y pasando el nombre del archivo
+
+## JSON
+
+Con el módulo Json de GO se puede crear un encoder o decoder de JSON apartir de una instancia de un archivo.
+Este con el method NewDecoder o NewEncoder. 
+
+Y deade ahí se puede usar la instancia del decoder o encode para leer o escribir un archivo JSON.
+
+Decode recib ela referencia de un slice o Array que va a recibir los datos.
+Mientras que Encode recibe un slice o Array qué es lo que va a escribir en el JSON.
+
+Estos generalmente van a tener que ser structures, pero cómo se puede definir que las propiedades tengan un 
+alias cuando sean decodificadas o codificadas de o a JSON. No hay tanto problema al momento de 
+manipular los datos.
+
+En general el manejo de los archivos de-codificadores. pueden retornar error, por eso es mejor tener un fallback
+listo para casos así.
