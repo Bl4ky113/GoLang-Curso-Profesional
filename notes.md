@@ -16,6 +16,9 @@ Sessions:
 - 07/23/2023 Common, we can do it
 - 07/24/2023 Let's go!!!
 - 07/25/2023 Still going strong. 4 days in a row
+- 07/26/2023 Common, we can do it!!! 5 days in a row!!! Let's get the full week
+- 08/01/2023 FUCK. Well anyways, before I enter the Nacho in a proper manner, I WANT THIS DONE
+- 08/03/2023 IT'S NOT OVER YET I PROMISE
 
 ## Que es GO?
 
@@ -633,6 +636,9 @@ Panic.
 Se pueden configurar, por ejemplo, agregando un prefifo cuando se generen los logs dentro de un módulo, esto con: SetPrefix(str). 
 Se puede destinar los logs a una instancia de un Archivo Abierto usando: SetOutput(file)
 
+La fecha y hora de los logs se pueden des/activar usando flags, que son la información que se va a pasar. 
+No se especifico mucho, pero pasando a SetFlags(0), se quitan la fecha y hora.
+
 ## File System y Operating System
 
 Para crear y abrir archivos debemos usar al lib de OS, y usar el method de OpenFile
@@ -662,3 +668,94 @@ manipular los datos.
 
 En general el manejo de los archivos de-codificadores. pueden retornar error, por eso es mejor tener un fallback
 listo para casos así.
+
+## Modules: Create, Install, Upload, and Share
+
+Para Crear un modulo, vamos a ir desde la terminal:
+
+$ go mod init $MODULEPATH
+
+Y ahí se va a crear un archivo go.mod
+este va a definir diferentes configuraciones del module cómo tal. Cómo los 
+requirements que se necesitan para poder ejecutar el módulo. 
+
+En el archivo main, vamos a definir una linea al inicio llamada package que va a ser desde 
+donde se va a usar cómo tal el module, cómo si fuera de una interfaz.
+
+
+Estos se pueden crear redirecciones para modules que tenemos instalados localmente.
+
+Para esto vamos a usar :
+
+$ go mod -replace url/requirement/module=../dir/requirement/module
+
+Y para definirlo cómo una dependencia, vamos a usar 
+
+$ go mod tidy
+Qué nos permite instalar las depencias que no tengamos y eliminar que no necesitamos.
+
+Una vez instalada el module, lo podemos usar según el nombre del package definido, y accediendo a 
+sus function cómo si fuera una interfaz
+
+## Testing on Go
+
+Con el módulo testing podemos correr tests en Go.
+vamos a primero crear un archivo con el mismo nombre de nuestro module, definir el mismo nombre de package, 
+pero le agregamos al nombre del archivo \_test.go para que go lo reconozca cómo un test.
+
+desde ahí vamos a crear functions que inicien con Test y que reciban cómo parametro un pointer de
+testing.T. Que nos va a permitir interactuar, hacer logs, mandar errores y demás con el testing de go.
+
+Desde ahí podemos hacer más que todo testcases que sean correctos, cómo que salten errores.
+Y usando el parametro de testing.T podemos llamar Fatalln, Fatalf, o Fatal que informa al test suite que 
+ha ocurrido un error.
+
+Lo que no termino de entender, es que en el Fatal, manda un string con backquote o \`\`. Pero supongo que 
+es para poder hacer un formato correcto de un Regex.
+
+## Regex
+
+Existe un módulo integrado de Go para manejar Regex. Nada raro, pero no se explica nada a detalle.
+Además de que al momento de crearlo se debe usar backquotes o \`\`.
+
+## Compilar y Installar
+
+Simplemente una vez instalado con
+
+$ go compile file.go
+
+vamos a poder usar el script cómo un bin. El cual generalmente se puede dejar en ~/.local/shared/bin o ~/.go/bin 
+para mejor acceso y uso.
+
+Sobretodo ~/.go/bin para uso de librerias y uso de otros scripts.
+
+## Subir a Github
+
+Simplemente lo de siempre, repo, coger el remote, commit, y push. Podemos ponerle un README donde se explique qué es 
+cómo se usa. Docs generales. 
+
+Ya para instalar vamos a usar go get -u y la url parcial del repo. Tipo
+
+github o dominio / usuario / repo
+
+$ go get -u github.com/bl4ky/something
+
+Y ahí se añadira de una vez al go.mod cómo una dependencia. Y se creara un archivo go.sum, pero no se especifica para qué es.
+En el import dentro de nuestros scripts, vamos a usar el mismo formato de url, si es que no lo redireccionamos.
+
+## i'm GO to POO
+
+GO cómo tal no esta diseñado para ser usado totalmente cómo un lenguaje de POO. 
+Pero tiene varias estructuras que nos puede permitir emular estas acciones. 
+
+## POO Classes
+
+las clases cómo tal no existen en Go, para esto vamos a tomar las interfaces y los types de Go. 
+Donde vamos a definir propiedades y usando functions que necesitan una referencia de un type. Podemos agregarle 
+methods a estas 'classes'.
+
+Pero si necesitamos 'simular' un constructor. Vamos a tener que si o si usar una function que retorne una referencia del type o interface 
+de la clase.
+
+Y qué desde ahí reciba los parametros inciales, y realice sus operaciones de constructor cómo tal. 
+Obviamente si tiene condicionales qué hace que no pueda funcionar, retornar también un error.
