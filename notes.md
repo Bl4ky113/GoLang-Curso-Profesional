@@ -19,6 +19,7 @@ Sessions:
 - 07/26/2023 Common, we can do it!!! 5 days in a row!!! Let's get the full week
 - 08/01/2023 FUCK. Well anyways, before I enter the Nacho in a proper manner, I WANT THIS DONE
 - 08/03/2023 IT'S NOT OVER YET I PROMISE
+- 08/04/2023 Common... It's not over yet
 
 ## Que es GO?
 
@@ -759,3 +760,50 @@ de la clase.
 
 Y qué desde ahí reciba los parametros inciales, y realice sus operaciones de constructor cómo tal. 
 Obviamente si tiene condicionales qué hace que no pueda funcionar, retornar también un error.
+
+## Encapsulización 
+
+En Go, solo podemos hacer las propiedades y methods de las interfaces privadas y públicas.
+Es bastante sencillo, simeplemente usamos minuscula o mayuscula, respectivamente para cada caso.
+
+## Interfaces, de verdad
+
+Las interfaces de struct funcionan especialmente para cosas cómo propiedades, pero cuando se trata de methods, 
+toca hacer vueltas raras con functions y pointers.
+
+Para eso se puede implementar una interface. La cual no hace todo más fácil sinceramente, pero se puede simplificar el 
+proceso de tener qué usar el mismo method con diferentes o tipos relacionados de objs.
+
+Con la siguiente syntaxis
+
+type Nombre interface {
+	method(params)
+}
+
+No se define cómo tal el method, este DEBE ser hecho por fuera del interface. Pero este method puede ser uno que se repita, pero teniendo diferentes 
+refs de pointers, de diferentes tipos de clases.
+
+## Composition y Polymorphism
+
+Básicamente, se pueden llamar y crear diferentes functions con el mismo nombre, pero con diferente ref pointer, o hacerlas con un
+tipo de obj diferente.
+
+Los conceptos de esto es que se puede crear un nuevo tipo de obj apartir de otro, para el cambio o añadido de 
+methods, es simplemente crear una nueva function con un refpointer diferente.
+
+Pero para properties, debemos hacer más vueltas, pero simples. 
+Vamos a agregar las nuevas properies, o las modificadas cómo cualquier otra. Y 
+vamos a 'agregar' cómo si fuera una el tipo de obj de donde queremos hacer inheritance.
+Y cuando vayamos a hacer un init cómo tal del obj. Pasarle las propiedades al tipo de obj padre cómo 
+si fuera un init normal de esté pero sin constructor. 
+
+type Name struct {
+	ParentType
+	...
+}
+
+Pero al momento de acceder a las propiedades, podemos acceder normalmente a estas. 
+O mejor dicho sin tener que acceder cómo si fuera un subnivel
+
+NO. Name.ParentType.ParentProperty
+YES. Name.ParentProperty
