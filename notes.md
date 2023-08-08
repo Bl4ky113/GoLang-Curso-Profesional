@@ -178,16 +178,6 @@ pueda ser usado de otras formas.
 
 Aunque esto solo es la parte de OUTPUT de fmt
 
-## Funciones
-
-tienen la siguiente sintaxis:
-
-func nombreFunction (parametro string, a, b int "mismo tipo para a y b") "tipo al retornar" string {
-	return valueString
-}
-
-Omitir los "" de la syntaxis
-
 ## Tipos de Datos, bien explicados
 
 En general se dividen en varios tipos de datos, cómo C manda.
@@ -555,7 +545,32 @@ Pero si no necesitamos un valor, NO podemos dejarlo volando, por eso lo mejor es
 variable con nombre \_
 
 \_, bar = foo() => foo, bar ... solo se guarda, o se usa, bar
-No puede dar error al no usar _ (?)
+No puede dar error al no usar _ (?) No, no da error
+
+## Advanced Functions (multiple parameters)
+
+para tener varios parametros en una function, vamos a agregar en los parametros ... y el tipo del valor.
+Esto nos va a dar un Array con los datos qué se le pasen a la function, sin tener que definir cuantos valores y
+a cada uno un nombre de variable.
+
+Pero si queremos no definir el tipo de valor que vayamos a manejar, podemos simplemente agregar en el tipo del
+valor
+
+...interface{}
+
+Y ahí podra recibir cualquier tipo de valor.
+
+Si necesitamos si o si tener unos parametros, es necesario pasarlos antes de la lista de parametros.
+
+## Advanced Functions (recursive funtion)
+
+Las functions que son recursivas son complejas de por sí, pero la forma
+de definirlas no tanto.
+
+Simplemente vamos a llamar en un return la misma function, asegurandonos qué la function va a tener un fin o
+qué se cierre un loop, retornando un valor donde no se llame a la function.
+
+## Advanced functions ( anonymous functions )
 
 Se pueden hacer anonymous functions generando una function dentro de otra, pero despues de los {} 
 agregar los () con los parametros necesarios, para qué una vez se creé, se ejecuté.
@@ -563,6 +578,23 @@ agregar los () con los parametros necesarios, para qué una vez se creé, se eje
 func () {
 
 }()
+
+Esto también se puede definir sin los () a una variable, donde la podemos usar cómo si fuera una function normal.
+Aprovechando esta funcionalidad, se puede también pasar a otras functions cómo parametros, donde podemos definir que tipos de parametros
+tienen que obtener y también que return necesitan. Supongo que si necesitan una ref de un interface, también es posible de definir.
+
+## Advanced functions ( high order functions )
+
+Son simplemente functions que usan otras functions para su funcionalidad usando la funcionalidad de go de 
+poder definir un parametro cómo una function, que parametros recibe y que return hace.
+
+## Advanced functions ( closure function )
+
+Las closure functions son más que todo functions que definen un ambiente de variables con valores, para crear y retornar
+una nueva anonymous function, qué generalmente se va a ejecutar mediante una variable.
+
+Las instancias de la anonymous functions van a tener el closure de datos y variables qué haya definido la function.
+Podiendo ejecutarse varias veces y compartir los mismos datos.
 
 ## Matrices
 
