@@ -20,6 +20,8 @@ Sessions:
 - 08/01/2023 FUCK. Well anyways, before I enter the Nacho in a proper manner, I WANT THIS DONE
 - 08/03/2023 IT'S NOT OVER YET I PROMISE
 - 08/04/2023 Common... It's not over yet
+- 08/05/2023 Let's go. I'm running out of stuff to say here
+- 08/07/2023 Sorry, didn't had my pc at hand :p
 
 ## Que es GO?
 
@@ -807,3 +809,37 @@ O mejor dicho sin tener que acceder cómo si fuera un subnivel
 
 NO. Name.ParentType.ParentProperty
 YES. Name.ParentProperty
+
+## Concurency
+
+La concurrencia en Go es practimante implementada de la forma más sencilla y simple posible.
+Permitiendonos ejecutar código de una forma paralela con diferentes núcleos de nuestro procesador
+de forma dinamica. 
+
+Para esto, simeplemente vamos a usar la palabra reservada: go 
+y listo!
+
+Generalmente, y más utíl cuando se tienen que hacer varias acciones con una function apartir de una lista de datos 
+cómo un Array.
+
+Pero esto puede qué se ejecute tan rápido que el programa termine sin dejar prints, logs o demás acciones.
+
+## Channels
+
+Los channels son una forma en la que podemos obtener y usar datos async. Tienen un formato diferente de generación y 
+uso frente a las variables normales. Pero es extremadamente utíl cuando se usan junto a la concurency.
+
+Para definir un nuevo channel, vamos a usar make y el tipo de dato qué se espera que vaya a tener.
+
+ch := make(chan string)
+Desde ahí podemos usar un tipo de operador especial (- *pero con un \< \> qué esta jodiendo mucho el syntax
+
+Qué vamos a usar a la derecha del channel para guardar o agregar datos a este, y a la izquierda cuando vayamos a usar estos datos.
+
+Esto nos va a arreglar el error anterior de la concunrency. Qué no se hicieran bien los logs.
+
+Pero algo qué no me cuadra es que al momento de hacer un print de los datos del channel. El hp del curso lo hace en un for loop aparte
+Voy a probar hacerlo en el mismo loop y fuera. Para ver si cambia algo
+
+Dentro -> misma cosa, pero creo que esta un poco lento
+Fuera -> Mierda, no son la misma cosa, se pueden hacer. Pero es mucho mucho más rápido.
