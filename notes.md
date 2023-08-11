@@ -22,6 +22,8 @@ Sessions:
 - 08/04/2023 Common... It's not over yet
 - 08/05/2023 Let's go. I'm running out of stuff to say here
 - 08/07/2023 Sorry, didn't had my pc at hand :p
+- 08/08/2023 First day, it wasn't that rough
+- 08/10/2023 Yeah, it's pretty simple all of this stuff.
 
 ## Que es GO?
 
@@ -875,3 +877,54 @@ Voy a probar hacerlo en el mismo loop y fuera. Para ver si cambia algo
 
 Dentro -> misma cosa, pero creo que esta un poco lento
 Fuera -> Mierda, no son la misma cosa, se pueden hacer. Pero es mucho mucho más rápido.
+
+## Generics in New Go 1.18
+
+Go has fallen...
+
+Con el ejemplo anterior de avanced functions. El multiple parameter con un tipo de dato raro usando 
+interface{}. Acepta cualquier tipo de parametro. Esto lo podemos cambiar por simeplemente 
+un any. 
+
+Funcionara de la misma manera.
+
+## Restrictions on Any
+
+Se pueden crear Restrictions en las functions para usar dentro de los parametros que se van a recibir 
+
+la syntaxis es:
+
+func foo [NewType int] (param NewType) {
+	...
+}
+
+Con el NewType podemos definir que tenga varios tipos, pero qué se define solo uno cuando se usa la function
+
+[NewType int | float32]
+
+Y si necesitamos o queremos usar valores que extienden a los tipos de valores del NewType, nos dara error ya que no son 
+exactamente el mismo tipo, pero podemos hacer que este se aproxime usando ~ al inicio de cada tipo de NewType
+
+[NewType ~int | ~float32]
+
+Podemos agregar varios tipos al restriction, pero esto haría que nuestra function tubiera un nombre extremadamente largo
+para evitar esto, y poder hacer restrictions más complejos podemos usar type interfaces. 
+
+Siendo la syntaxis
+
+type constraints interface {
+	type | type2 | ~typ3
+}
+
+De ahí podemos usar otros constraints hechos con Interfaces, haciendo cada vez más complejos estos mismos.
+Algunos se encuentran disponibles en el packet manager de Go.
+
+Estos constraints una vez definido el tipo del valor, se pueden usar operadores de comparación cómo si fuera el mismo valor.
+Pasando el tipo de valor final a callbacks para tambien poder ser usado cómo el tipo de valor definido.
+
+Las structs tampoco se salvan. 
+
+Se puede agregar, despúes del nombre, un [] con el nombre y tipos de datos para un dato generico.
+Donde lo podremos usar el tipo generico en las interfaces.
+
+
