@@ -1,7 +1,7 @@
 # Go Lang: Curso Profesional. 0 -> Master 2023
 
 Start: 03/27/2023
-End: 
+End: 08/10/2023
 
 Sessions:
 - 03/27/2023
@@ -719,7 +719,6 @@ requirements que se necesitan para poder ejecutar el módulo.
 En el archivo main, vamos a definir una linea al inicio llamada package que va a ser desde 
 donde se va a usar cómo tal el module, cómo si fuera de una interfaz.
 
-
 Estos se pueden crear redirecciones para modules que tenemos instalados localmente.
 
 Para esto vamos a usar :
@@ -927,4 +926,30 @@ Las structs tampoco se salvan.
 Se puede agregar, despúes del nombre, un [] con el nombre y tipos de datos para un dato generico.
 Donde lo podremos usar el tipo generico en las interfaces.
 
+# GIN 
 
+Gin is a Backend Martini (Golang api) like API with stounding performace
+Some of it's perks are:
+- json validation
+- middleware support
+- routes grouping
+- error management (not by default in GO)
+- JSON, HTML and more Server side rendering
+- Extendable with middleware
+
+## Install
+
+$ go get -u github.com/gin-gonic/gin
+
+In the files
+
+import "github.com/gin-gonic/gin"
+
+There's a way with modules, but meh.
+I tried to install it without a module and it didn't work. Soo
+
+Just create a module, that's it
+
+There's a simple example of a /ping route, and that's it.
+
+It's done, the hole tutorial/docs and more
